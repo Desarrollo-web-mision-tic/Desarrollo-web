@@ -4,12 +4,22 @@ import { useContext } from 'react';
 import { createContext } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext();
+const AuthContext = createContext({});
 
 function AuthProvider({ children }){
     const navigate = useNavigate();
 
-    const [ user, setUser ] = useState(null);
+    const initialState = {
+        cart: [],
+    }
+    const [ user, setUser ] = useState(initialState);
+
+    const addToCart = (payload) => {
+        setUser({
+            ...user,
+            cart: [...user.cart, payload]
+        });
+    };
 
     const login = ({ username }) =>{
         setUser({ username });
@@ -21,7 +31,7 @@ function AuthProvider({ children }){
         navigate('/home')
     }
 
-    const auth = { user, login, logout };
+    const auth = { user, login, logout, addToCart};
     return (
         <AuthContext.Provider value={auth}>
             {children}

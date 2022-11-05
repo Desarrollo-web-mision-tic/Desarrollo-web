@@ -1,6 +1,14 @@
+import React from 'react'
+import { useAuth } from '../auth';
+import '../styles/AsideCarrito.css'
 
-const SectionCard = () => {
-    return (
+const SectionCard = ({ product }) =>{
+    const { addToCart }  = useAuth();
+
+    const handleCard = item =>{
+        addToCart(item);
+    }
+    return(
         <section className="container">
             <div className="col-lg-12 col-md-12 col-sm-12 d-block mt-5">
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex mb-5">
@@ -16,7 +24,8 @@ const SectionCard = () => {
                             </div>
                             <p className="card-text"><b>$ 35.000.000</b></p>
                             <div className="text-center">
-                            <button href="#" className="btn btn-success">Agregar al carrito</button>
+                            <button onClick={() => handleCard(product)} className="btn btn-success">Agregar al carrito</button>
+                            
                             </div>
                         </div>
                     </div>
@@ -33,7 +42,7 @@ const SectionCard = () => {
                             </div>
                             <p className="card-text"><b>$ 45.000.000</b></p>
                             <div className="text-center">
-                            <button href="#" className="btn btn-success">Agregar al carrito</button>
+                            <button onClick={() => handleCard(product)} href="#" className="btn btn-success">Agregar al carrito</button>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ const Login = () => {
   const login = (e) => {
     e.preventDefault();
     auth.login({ username });
+    console.log(username);
   };
 
   return (
@@ -50,7 +51,7 @@ const Login = () => {
 
           <a href="/">Forgot my password</a>
         </form>
-        <button type="submit" className="secundary-button signup-button">Login</button>
+        <button type="submit" className="secundary-button signup-button">Register</button>
       </div>
     </div>
     </>

@@ -1,0 +1,23 @@
+.navbar-shopping-cards{
+    position: relative;
+  }
+  .navbar-shopping-cards div{
+    width: 14px;
+    height: 14px;
+    background-color: var(--hospital-green);
+    border-radius: 50%; 
+    font-size: var(--sm);
+    font-weight: bold;
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  p{
+    color: black;
+    margin-top: 17px;
+    font-size: 12px;
+  }

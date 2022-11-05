@@ -1,4 +1,5 @@
-
+import React from 'react'
+import '../styles/AsideCarrito.css'
 
 const AsideDetallePro = () =>{
     return(
