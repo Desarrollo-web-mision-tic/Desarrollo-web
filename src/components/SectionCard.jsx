@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth } from '../auth';
-import '../styles/AsideCarrito.css'
+import '../styles/ListaPro.css'
 
 const SectionCard = ({ product }) =>{
     const { addToCart }  = useAuth();
@@ -9,7 +9,7 @@ const SectionCard = ({ product }) =>{
         addToCart(item);
     }
     return(
-        <section className="container">
+        <section className="container pb-5">
             <div className="col-lg-12 col-md-12 col-sm-12 d-block mt-5">
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex mb-5">
                     <div className="col-lg-4 col-md-4 col-sm-4 card">
