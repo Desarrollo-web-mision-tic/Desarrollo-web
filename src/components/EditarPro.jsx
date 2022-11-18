@@ -1,74 +1,75 @@
-import React, { useContext } from "react";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import ProductoContext from "./context/productos/productoContext";
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import ProductoContext from './context/productos/productoContext';
 
-function ModalModificar() {
-
+const EditarPro = ({ product }) => {
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
-  const { errorformulario, agregarProducto, mostrarError } = productoContext;
-
-  //state para productos
+  const { productoseleccionado, actualizarProducto } = productoContext;
+  //detecta si hay un producto seleccionado
+  useEffect(() => {
+    if (productoseleccionado !== null) {
+        guardarProductos(productoseleccionado)
+    }else {
+        guardarProductos({
+            img: '',
+            marca: '',
+            modelo: '',
+            stock: '',
+            km: '',
+            year: '',
+            precio: '',
+        });
+    }
+  }, [productoseleccionado])
   const [producto, guardarProductos ] = useState({
-      img: '',
-      marca: '',
-      modelo: '',
-      stock: '',
-      km: '',
-      year: '',
-      precio: '',
-  });
-  //extraer nombre del productos
-  const { img, marca, modelo, stock, km, precio, year } = producto;
-  //lee los contenidos del input
-  const onChangeProducto = e => {
+    img: '',
+    marca: '',
+    modelo: '',
+    stock: '',
+    km: '',
+    year: '',
+    precio: '',
+});
+  //leer formulario, valores
+  const handleChange = e => {
     guardarProductos({
-      ...producto,
-      [e.target.name]: e.target.value
-    });
-  }
-  //cuando se envia un proyecto
-  const onSubmitProducto = e => {
+        ...producto,
+        [e.target.name]: e.target.value
+    })
+}
+  const { img, marca, modelo, stock, km, year, precio } = producto;
+  const onSubmit = e => {
     e.preventDefault();
 
     //validar
     if (marca === '' || modelo === '' || 
     stock === '' || km === '' || precio === '' || year === '' ) {
-      mostrarError();
-      return;  
+      return;
     }
-    //agregar al state
-    agregarProducto(producto);
-    //reiniciar el form
-    guardarProductos({
-      img: '',
-      marca: '',
-      modelo: '',
-      stock: '',
-      km: '',
-      year: '',
-      precio: '',
-    })
+    //actualizar el producto seleccionado
+    if (productoseleccionado !== null) {
+      actualizarProducto(producto);
+    }
+
   }
 
-  return (
-    <>
-          { errorformulario ? <p className="mensaje error">Todos los campos son obligatorios</p> : null}
-      <form className="formulario"
-        onSubmit={onSubmitProducto}
-      >
+    return (
+        <>
+            <form className="formulario"
+            onSubmit={onSubmit}
+          >
         <div className="forma-input">
           <label className="form-label">
             Imagen
           </label>
           <input
-            type="file"
+            type="image" alt='s'
             className="form-control"
             aria-describedby="emailHelp"
             name="img"
-            value={img}
-            onChange={onChangeProducto}
+            onChange={handleChange}
+            src={img}
           />
         </div>
         <div className="forma-input">
@@ -81,7 +82,7 @@ function ModalModificar() {
             aria-describedby="emailHelp"
             name="marca"
             value={marca}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="forma-input">
@@ -93,7 +94,7 @@ function ModalModificar() {
             className="form-control"
             name="modelo"
             value={modelo}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="forma-input">
@@ -105,7 +106,7 @@ function ModalModificar() {
             className="form-control"
             name="stock"
             value={stock}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="forma-input">
@@ -117,7 +118,7 @@ function ModalModificar() {
             className="form-control"
             name="km"
             value={km}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="forma-input">
@@ -129,7 +130,7 @@ function ModalModificar() {
             className="form-control"
             name="year"
             value={year}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="forma-input">
@@ -141,20 +142,20 @@ function ModalModificar() {
             className="form-control"
             name="precio"
             value={precio}
-            onChange={onChangeProducto}
+            onChange={handleChange}
           />
         </div>
         <div className="btn-botones">
-        <input type="submit" className="btn-modificar"
-          value='Agregar'
+        <input type="submit" className="btn btn-primary"
+          Modificar
         />
-        <NavLink to={'/modificar'} className="btn btn-success btn-regresar">
+        <NavLink to={'/modificar'} className="btn btn-success">
           Regresar
         </NavLink>
         </div>
       </form>
-    </>
-  );
-}
+        </>
+    );
+};
 
-export { ModalModificar };
+export default EditarPro;

@@ -12,7 +12,15 @@
     margin: 0;
     font-family: 'Quicksand', sans-serif;
   }
-  
+  .containe-card{
+    display: flex;
+    justify-content: center;
+    padding: 50px 200px;
+    flex-wrap: wrap;
+  }
+  .card{
+    margin: 10PX;
+  }
   .MyOrder {
     width: 360px;
     padding: 24px;

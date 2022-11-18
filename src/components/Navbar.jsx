@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../auth";
 import "../styles/Navbar.css";
 import { AsideProducto } from "./AsideProducto";
+import AuthContext from "./autenticacion/authContext";
 
 export const Navbar = ({ rol }) => {
   const [toggle, setToggle] = useState(false);
-  const auth = useAuth();
+  
+  //extraer la informacion autenticada
+  const authContext = useContext(AuthContext);
+  const { usuario } = authContext;
+  
 
-  const handleToggle = () => {
+  const clickCarrito = () => {
     setToggle(!toggle);
-  };
+  }
 
   return (
     <>
@@ -18,8 +22,8 @@ export const Navbar = ({ rol }) => {
         <div className="navbar-left">
           <ul>
             {routes.map((route) => {
-              if (route.publicOnly && auth.user) return null;
-              if (route.private && !auth.user) return null;
+              if (route.publicOnly && usuario) return null;
+              if (route.private && !usuario) return null;
               return (
                 <li key={route.to} >
                   {route.div}
@@ -37,10 +41,9 @@ export const Navbar = ({ rol }) => {
               );
             })}
             {routesCar.map((route) => {
-              if (route.private && !auth.user) return null;
+              if (route.private && !usuario) return null;
               return(
-                <li key={route.img} onClick={handleToggle} className="navbar-shopping-cards">
-                  {auth.user.cart.length > 0 ? <div>{auth.user.cart.length}</div> : null}
+                <li key={route.img} onClick={clickCarrito} className="navbar-shopping-cards">
                   <NavLink>
                     {route.img}
                   </NavLink>
@@ -49,7 +52,7 @@ export const Navbar = ({ rol }) => {
             })}
           </ul>
         </div>
-        { toggle && <AsideProducto />}
+       { toggle && <AsideProducto/>}
       </nav>
     </>
   );
