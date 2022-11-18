@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useAuth } from "../auth";
+import { OBTENER_PRODUCTOS } from "../types";
+import ProductoContext from "./context/productos/productoContext";
 import OrderItem from "./OrdenItem";
 
 const AsideProducto = () => {
-  const { user } = useAuth();
+  //extraer productos de stateInitial
+  const productoContext = useContext(ProductoContext);
+  const { cart } = productoContext;
+
   return (
     <>
       <aside className="MyOrder">
@@ -12,9 +17,9 @@ const AsideProducto = () => {
         </div>
 
         <div className="my-order-content">
-          {user.cart.map((product) => {
-            return <OrderItem product={product} /* key={} */ />;
-          })}
+          {cart.map((item, index) => (
+            <OrderItem key={index} data={item} />
+          ))}
           <div className="order">
             <p>
               <span>Total</span>

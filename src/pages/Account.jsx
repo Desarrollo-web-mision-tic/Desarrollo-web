@@ -1,36 +1,55 @@
-import React from 'react';
-import { useAuth } from '../auth';
-import Logout from '../components/Logout';
+import React, { useContext, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import AuthContext from '../components/autenticacion/authContext';
 
 const Account = () => {
-    const auth = useAuth();
+
+    //extraer la informacion autenticada
+  const authContext = useContext(AuthContext);
+  const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
+
+  //cerrar la session
+  let navigate = useNavigate();
+  const logout = () => {
+      cerrarSesion();
+      navigate('/login')
+  }
+  useEffect(() => {
+    usuarioAutenticado();
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+    
 
     return (
         <>
-            <div class="login">
-        <div class="form-container">
-            <h1 class="title">My account</h1>
+            <div className="login">
+        <div className="form-container">
+            <h1 className="title">My account</h1>
 
-            <form action="/" class="form">
+            <form action="/" className="form">
                 <div>
-                    <label for="name" class="label">Name</label>
-                    <p class="value">Diego Andres Salas</p>
+                    <label htmlFor="name" className="label">Name</label>
+                    { usuario ? <p className="value">{usuario.nombre}</p> : null}
                     
-                    <label for="email" class="label">Email address</label>
-                    <p class="value">{auth.user.username}</p>
+                    <label htmlFor="email" className="label">Email address</label>
+                    { usuario ? <p className="value">{usuario.email}</p> : null }
     
-                    <label for="password" class="label">Password</label>
-                    <p class="value">***********</p>
+                    <label htmlFor="password" className="label">Password</label>
+                    <p className="value">***********</p>
                 </div>
 
-                <input type="submit" value="Edit  " class="secundary-button login-button" />
+                <input type="submit" value="Edit  " className="secundary-button login-button" />
             </form>
         </div>
-            <Logout/>
+        <button type='submit'
+            onClick={logout()}
+        >Logout</button>
     </div>
             
         </>
     );
 };
 
-export default Account;
+export {
+    Account,
+};

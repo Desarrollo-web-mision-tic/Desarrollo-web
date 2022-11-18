@@ -6,66 +6,105 @@ import ModificarProducto from "./pages/ModificarProducto";
 import Ventas from "./pages/Ventas";
 import Logout from "./components/Logout";
 import Productos from "./pages/Productos";
-import Account from "./pages/Account";
-import { AuthProvider, AuthRoute } from "./auth";
+import { Account } from "./pages/Account";
 import Home from "./pages/Home";
+import { ModalModificar } from "./components/ModalModificar";
+import NotFount from "./components/NotFount";
+import ProductoState from "./components/context/productos/productoState";
+import EditarPro from "./components/EditarPro";
+import Register from "./pages/Register";
+import AlertaState from "./components/context/alertas/alertaState";
+import { AuthState } from "./components/autenticacion/authState";
+import tokenAuth from "./components/config/tokenAuth";
+import AuthRoutes from "./components/autenticacion/routes";
+
+//revisar si tenemos un token
+const token = localStorage.getItem("token");
+if (token) {
+  tokenAuth(token);
+}
 
 const App = () => {
-  
   return (
-    <>
+    <ProductoState>
       <HashRouter>
-        <AuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route
-              path="/admin"
-              element={
-                <AuthRoute>
-                  <ProductosAdmin />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/modificar"
-              element={
-                <AuthRoute>
-                  <ModificarProducto />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/ventas"
-              element={
-                <AuthRoute>
-                  <Ventas />
-                </AuthRoute>
-              }
-            />
-            <Route path="/logout" element={<Logout />} />
-            <Route
-              path="/user"
-              element={
-                <AuthRoute>
-                  <Productos />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/account"
-              element={
-                <AuthRoute>
-                  <Account />
-                </AuthRoute>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<p>Not Fount</p>} />
-          </Routes>
-        </AuthProvider>
+        <AlertaState>
+          <AuthState>
+            <Navbar />
+            <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route
+                path="/admin"
+                element={
+                  <AuthRoutes>
+                    <ProductosAdmin />
+                  </AuthRoutes>
+                }
+              />
+              <Route
+                path="/modificar"
+                element={
+                  <AuthRoutes>
+                    <ModificarProducto />
+                  </AuthRoutes>
+                }
+              />
+              <Route
+                path="/ventas"
+                element={
+                  <AuthRoutes>
+                    <Ventas />
+                  </AuthRoutes>
+                }
+              />
+              <Route path="/logout" element={<Logout />} />
+              <Route
+                path="/user"
+                element={
+                  <AuthRoutes>
+                    <Productos />
+                  </AuthRoutes>
+                }
+              />
+              <Route
+                path="/account"
+                element={
+                  <AuthRoutes>
+                    <Account />
+                  </AuthRoutes>
+                }
+              />
+              <Route
+                path="/editar-carro"
+                element={
+                  <AuthRoutes>
+                    <EditarPro />
+                  </AuthRoutes>
+                }
+              />
+              <Route
+                path="/ingresar-carro"
+                element={
+                  <AuthRoutes>
+                    <ModalModificar />
+                  </AuthRoutes>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/regirter" element={<Register />} />
+              <Route
+                path="*"
+                element={
+                  <AuthRoutes>
+                    <NotFount />
+                  </AuthRoutes>
+                }
+              />
+            </Routes>
+          </AuthState>
+        </AlertaState>
       </HashRouter>
-    </>
+    </ProductoState>
   );
 };
 

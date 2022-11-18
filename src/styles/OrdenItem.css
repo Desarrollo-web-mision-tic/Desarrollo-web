@@ -21,3 +21,10 @@
 	font-size: var(--md);
 	font-weight: bold;
 }
+.cerrar{
+	background-color: rgb(146, 12, 12);
+	margin-bottom: 16px;
+}
+.cerrar:hover {
+	background-color: rgb(233, 7, 7);
+}
