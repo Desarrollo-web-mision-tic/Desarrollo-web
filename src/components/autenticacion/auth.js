@@ -15,4 +15,3 @@ function AuthRoutes(props){
   }
 
 export default AuthRoutes;
-

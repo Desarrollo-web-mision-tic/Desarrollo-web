@@ -16,7 +16,7 @@ import Register from "./pages/Register";
 import AlertaState from "./components/context/alertas/alertaState";
 import { AuthState } from "./components/autenticacion/authState";
 import tokenAuth from "./components/config/tokenAuth";
-import AuthRoutes from "./components/autenticacion/routes";
+import AuthRoutes from "./components/autenticacion/auth";
 
 //revisar si tenemos un token
 const token = localStorage.getItem("token");

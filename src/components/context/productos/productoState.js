@@ -1,10 +1,9 @@
 import React, { useReducer } from "react";
 import productoReducer from "./productoReducer";
 import ProductoContext from "./productoContext";
-import { v4 as uuidv4 } from "uuid";
+/* import { v4 as uuidv4 } from "uuid"; */
 
 import {
-  FORMULARIO_PRODUCTO,
   OBTENER_PRODUCTOS,
   AGREGAR_PRODUCTO,
   VALIDAR_FORMULARIO,
@@ -14,100 +13,10 @@ import {
   ELIMINAR_CARRITO,
   MOSTRAR_CARRITO
 } from "../../../types";
+import clienteAxios from "../../config/axios";
 
 const ProductoState = ({ children }) => {
-  const productos = [
-    {
-      id: 1,
-      img: "./carros/audi-sedan.svg",
-      stock: 100,
-      marca: "Mazda",
-      modelo: "z-2000",
-      km: "29282",
-      year: "2010",
-      precio: 36000000,
-    },
-    {
-      id: 2,
-      img: "./carros/ferrari.jpg",
-      stock: 120,
-      marca: "Ferrari",
-      modelo: "z-3000",
-      km: "34282",
-      year: "2020",
-      precio: 59000000,
-    },
-    {
-      id: 3,
-      img: "./carros/audi.jpg",
-      stock: 130,
-      marca: "Audi",
-      modelo: "z-4000",
-      km: "49282",
-      year: "2034",
-      precio: 65000000,
-    },
-    {
-      id: 4,
-      img: "./carros/toyota.jpg",
-      stock: 140,
-      marca: "Fords",
-      modelo: "z-5000",
-      km: "59282",
-      year: "2042",
-      precio: 345000000,
-    },
-    {
-      id: 5,
-      img: "./carros/renault-symbol-2010.svg",
-      stock: 150,
-      marca: "Chevrolet",
-      modelo: "z-6000",
-      km: "69282",
-      year: "2020",
-      precio: 96000000,
-    },
-    {
-      id: 6,
-      img: "./carros/jeep.jpg",
-      stock: 160,
-      marca: "BMW",
-      modelo: "z-7000",
-      km: "829282",
-      year: "2030",
-      precio: 326000000,
-    },
-    {
-      id: 7,
-      img: "./carros/ford-fiesta-2012.svg",
-      stock: 170,
-      marca: "Audi",
-      modelo: "z-8000",
-      km: "99282",
-      year: "2040",
-      precio: 76000000,
-    },
-    {
-      id: 8,
-      img: "./carros/lamborghini-Gallardo-2010.svg",
-      stock: 180,
-      marca: "Purchs",
-      modelo: "z-9000",
-      km: "59282",
-      year: "2040",
-      precio: 56000000,
-    },
-    {
-      id: 9,
-      img: "./carros/porsche-911-turbo-s-2021.svg",
-      stock: 190,
-      marca: "Jeep",
-      modelo: "z-2300",
-      km: "429282",
-      year: "2003",
-      precio: 46000000,
-    },
-  ];
+ 
   const initialState = {
     productos: [],
     cart: [],
@@ -121,21 +30,29 @@ const ProductoState = ({ children }) => {
 
   //serie de funciones para el CRUD
   //obtener productos
-  const obtenerProductos = () => {
-    dispatch({
-      type: OBTENER_PRODUCTOS,
-      payload: productos,
-    });
+  const obtenerProductos = async () => {
+    try {
+      const resultado = await clienteAxios.get('api/productos');
+      console.log(resultado.data.productos);
+      //insertar producto state
+      dispatch({
+        type: OBTENER_PRODUCTOS,
+        payload: resultado.data.productos,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   //AGREGAR NUEVO PROYECTO
-  const agregarProducto = producto => {
-    producto.id = uuidv4();
-
+  const agregarProducto = async producto => {
+    //producto.id = uuidv4();
     //agregar los proyectos
-    dispatch({
-      type: AGREGAR_PRODUCTO,
-      payload: producto,
-    });
+    try {
+      const resultado = await clienteAxios.post('/api/productos', producto);
+      console.log(resultado);
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
    //Validar formulario por errores
    const mostrarError = () => {
@@ -144,18 +61,32 @@ const ProductoState = ({ children }) => {
     })
 }
 //extrae un producto para editar
-const editarProducto = producto => {
-  dispatch({
-    type: PRODUCTO_ACTUAL,
-    payload: producto
-  })
+const editarProducto = async producto => {
+
+  try {
+    const resultado = await clienteAxios.put(`/api/productos/${producto.uid}`, producto);
+    console.log(resultado.data.producto);
+    dispatch({
+      type: PRODUCTO_ACTUAL,
+      payload: resultado.data.producto
+    })
+  } catch (error) {
+    console.log(error);
+  }
 }
 //editar un producto
-const actualizarProducto = producto => {
-  dispatch({
-    type: ACTUALIZAR_PRODUCTO,
-    payload: producto
-  })
+const actualizarProducto = async producto => {
+  try {
+    const resultado = await clienteAxios.put(`/api/productos/${producto.uid}`, producto);
+    console.log(producto);
+    console.log(resultado.data.producto);
+    dispatch({
+      type: ACTUALIZAR_PRODUCTO,
+      payload: resultado.data.producto
+    })
+  } catch (error) {
+    console.log(error.response);
+  }
 }
   //agregar al carrito
   const addToCart = id => {

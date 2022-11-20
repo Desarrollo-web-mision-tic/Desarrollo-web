@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import { useContext } from "react";
 import { useEffect } from "react";
-import { carrosTodos } from "../auth";
-import NotFount from "./NotFount";
+import ProductoContext from "./context/productos/productoContext";
+import SpinnerCarga from "./SpinnerCarga";
 
 const ProducItemAdmin = ({ product }) => {
-  const [carros, setCarros] = useState(null);
-
+  //extraer productos de stateInitial
+  const productoContext = useContext(ProductoContext);
+  const { productos, obtenerProductos } = productoContext;
+  //obtener productos cuando carga el componente
   useEffect(() => {
-    carrosTodos(setCarros);
+    obtenerProductos();
+    // eslint-disable-next-line
   }, []);
-
+  //revisar si tiene productos
+  if (productos.length === 0) return <SpinnerCarga />;
   return (
     <>
-      {carros != null ? (
-        carros.map((carro) => (
-          <div key={carro.id} className="col-lg-4 col-md-4 col-sm-4 card">
+      {productos != null ? (
+        productos.map((carro) => (
+          <div key={carro.uid} className="col-lg-4 col-md-4 col-sm-4 card">
             <img src={carro.img} alt={carro.marca} />
             <div className="card-body">
               <h5 className="card-title">
@@ -28,21 +33,21 @@ const ProducItemAdmin = ({ product }) => {
                   <b>{carro.km}</b>&nbsp;Km
                 </h4>
                 <h4>
-                  <b>Año:</b>&nbsp;{carro.año}
+                  <b>Stock:</b>&nbsp;{carro.stock}
+                </h4>
+                <h4>
+                  <b>Año:</b>&nbsp;{carro.year}
                 </h4>
               </div>
               <p className="card-text">
-                <b>$ {carro.año}</b>
+                <b>$ {carro.precio}</b>
               </p>
-              <div className="text-center">
-              <h3>Stock</h3>
-              <p>{carro.stock}</p>
-              </div>
+              <div className="text-center"></div>
             </div>
           </div>
         ))
       ) : (
-        <NotFount />
+        <SpinnerCarga />
       )}
     </>
   );

@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import { useAuth } from "../auth";
-import { OBTENER_PRODUCTOS } from "../types";
 import ProductoContext from "./context/productos/productoContext";
 import OrderItem from "./OrdenItem";
 

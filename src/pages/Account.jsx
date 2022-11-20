@@ -1,19 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
 import AuthContext from '../components/autenticacion/authContext';
+import Logout from '../components/Logout';
 
 const Account = () => {
 
     //extraer la informacion autenticada
   const authContext = useContext(AuthContext);
-  const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
+  const { usuario, usuarioAutenticado } = authContext;
 
-  //cerrar la session
-  let navigate = useNavigate();
-  const logout = () => {
-      cerrarSesion();
-      navigate('/login')
-  }
   useEffect(() => {
     usuarioAutenticado();
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,9 +35,7 @@ const Account = () => {
                 <input type="submit" value="Edit  " className="secundary-button login-button" />
             </form>
         </div>
-        <button type='submit'
-            onClick={logout()}
-        >Logout</button>
+        <Logout />
     </div>
             
         </>

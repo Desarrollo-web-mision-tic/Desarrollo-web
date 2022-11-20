@@ -24,7 +24,7 @@ const AuthState = props => {
     const registrarUsuario = async datos => {
         try {
             const respuesta = await clienteAxios.post('/api/usuarios', datos)
-            console.log(respuesta.data.usuario); 
+            //console.log(respuesta.data.usuario); 
             dispatch({
                 type: REGISTRO_EXITOSO,
                 payload: respuesta.data, 
@@ -48,12 +48,12 @@ const AuthState = props => {
         const token = localStorage.getItem('token');
         if (token) {
             tokenAuth(token);
-            console.log(token);
+            //console.log(token);
         }
 
         try {
             const respuesta = await clienteAxios.get('/api/login');
-            console.log(respuesta.data);
+            //console.log(respuesta.data);
             dispatch({
                 type: OBTENER_USUARIO,
                 payload: respuesta.data.usuario, 
@@ -70,7 +70,7 @@ const AuthState = props => {
 
         try {
             const respuesta = await clienteAxios.post('/api/login', datos)
-            console.log(respuesta.data)
+            //console.log(respuesta.data)
             dispatch({
                 type: LOGIN_EXITOSO,
                 payload: respuesta.data

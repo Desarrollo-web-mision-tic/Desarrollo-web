@@ -35,8 +35,8 @@ export default (state, action) => {
     case ACTUALIZAR_PRODUCTO:
       return {
         ...state,
-        productos: state.productos.map((producto) =>
-          producto.id === action.payload.id ? action.payload : producto
+        productos: state.productos.map(producto =>
+          producto.uid === action.payload.uid ? action.payload : producto
         ),
       };
     case AGREGAR_CARRITO:

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ProductoContext from './context/productos/productoContext';
 
@@ -6,7 +6,7 @@ const ProducItemEditar = ({ producto }) => {
 
     //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
-  const { productoseleccionado, editarProducto } = productoContext;
+  const { editarProducto } = productoContext;
 
   //agregar un product actual para editar
   const seleccionarProducto = producto => {
