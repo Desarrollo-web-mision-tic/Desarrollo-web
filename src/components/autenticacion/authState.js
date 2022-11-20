@@ -32,7 +32,7 @@ const AuthState = props => {
             //obtener el usuario
             usuarioAutenticado();
         } catch (error) {
-            console.log(error.response.data.msg);
+            //console.log(error.response.data.msg);
             const alerta = {
                 msg: error.response.msg,
                 categoria: 'alerta-error'
@@ -59,7 +59,7 @@ const AuthState = props => {
                 payload: respuesta.data.usuario, 
             })
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error.response)
             dispatch({
                 type: LOGIN_ERROR,
             })
@@ -67,7 +67,6 @@ const AuthState = props => {
     }
     //cuando inicia sesion
     const iniciaSesion = async datos => {
-
         try {
             const respuesta = await clienteAxios.post('/api/login', datos)
             //console.log(respuesta.data)

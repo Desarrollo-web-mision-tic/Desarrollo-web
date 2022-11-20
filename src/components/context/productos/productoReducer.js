@@ -50,7 +50,7 @@ export default (state, action) => {
     case ELIMINAR_CARRITO:
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action.payload),
+        cart: state.cart.filter((item) => item.uid !== action.payload),
       };
     case MOSTRAR_CARRITO:
       return {

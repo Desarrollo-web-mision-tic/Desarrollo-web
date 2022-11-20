@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import '../styles/OrdenItem.css';
 import ProductoContext from './context/productos/productoContext';
 
 const OrderItem = ({ data }) => {
-
+	
+  
 	//extraer productos de stateInitial
 	const productoContext = useContext(ProductoContext);
-	const { deleteToCart } = productoContext;
-	const { id, img, marca, modelo, precio } = data;
+	const { deleteToCart, productos } = productoContext;
+	const { uid, img, marca, modelo, precio } = productos;
 	//effect que detecta si hay un producto seleccionado
 	
 
@@ -19,7 +20,7 @@ const OrderItem = ({ data }) => {
 			</figure>
 			<p>{marca}</p>
             <p>{precio}</p>
-			<img className='cerrar' src="./icons/icon_close.png" alt="close" onClick={() => deleteToCart(id)} />
+			<img className='cerrar' src="./icons/icon_close.png" alt="close" onClick={() => deleteToCart(uid)} />
 		</div>
 		</>
 	);

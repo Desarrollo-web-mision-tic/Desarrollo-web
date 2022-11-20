@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ProductoContext from "./context/productos/productoContext";
 
 function ModalModificar() {
-
+  let navigate = useNavigate();
+  
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { errorformulario, agregarProducto, mostrarError } = productoContext;
 
   //state para productos
   const [producto, guardarProductos ] = useState({
-      id: '',
       img: '',
       marca: '',
       modelo: '',
@@ -21,7 +21,7 @@ function ModalModificar() {
       precio: '',
   });
   //extraer nombre del productos
-  const { id, img, marca, modelo, stock, km, precio, year } = producto;
+  const { img, marca, modelo, stock, km, precio, year } = producto;
   //lee los contenidos del input
   const onChangeProducto = e => {
     guardarProductos({
@@ -43,7 +43,6 @@ function ModalModificar() {
     agregarProducto(producto)
     //reiniciar el form
     guardarProductos({
-      id: '',
       img: '',
       marca: '',
       modelo: '',
@@ -52,6 +51,8 @@ function ModalModificar() {
       year: '',
       precio: '',
     })
+
+    navigate('/modificar');
   }
 
   return (
@@ -99,16 +100,6 @@ function ModalModificar() {
           />
         </div>
         <div className="forma-input">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Id Producto
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="id"
-            value={id}
-            onChange={onChangeProducto}
-          />
         </div>
         <div className="forma-input">
           <label className="form-label">

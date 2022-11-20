@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import AuthContext from '../components/autenticacion/authContext';
 import Logout from '../components/Logout';
 
@@ -7,9 +8,15 @@ const Account = () => {
     //extraer la informacion autenticada
   const authContext = useContext(AuthContext);
   const { usuario, usuarioAutenticado } = authContext;
+  //console.log(usuario)
 
   useEffect(() => {
-    usuarioAutenticado();
+    if(usuarioAutenticado()){
+        usuarioAutenticado();
+    }else{
+        <Navigate to={'/login'}/>
+    }
+
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
     

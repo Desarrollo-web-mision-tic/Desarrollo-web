@@ -5,6 +5,7 @@ import ProductoContext from "./context/productos/productoContext";
 import SpinnerCarga from "./SpinnerCarga";
 
 const ProducItemAdmin = ({ product }) => {
+  
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { productos, obtenerProductos } = productoContext;

@@ -3,9 +3,12 @@ import ProductoContext from "./context/productos/productoContext";
 import OrderItem from "./OrdenItem";
 
 const AsideProducto = () => {
+  
+
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { cart } = productoContext;
+
 
   return (
     <>

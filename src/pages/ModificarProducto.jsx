@@ -11,6 +11,7 @@ const ModificarProducto = ({ producto }) => {
   const { productos } = productoContext;
 
 
+
   return (
     <>
       <section className="container">
@@ -18,7 +19,7 @@ const ModificarProducto = ({ producto }) => {
         <div className="containe-card">
           { productos.map( producto =>(
             <ProducItemEditar
-              key={producto.id}
+              key={producto.uid}
               producto={producto}
             />
           ))}

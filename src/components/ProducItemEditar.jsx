@@ -8,6 +8,8 @@ const ProducItemEditar = ({ producto }) => {
   const productoContext = useContext(ProductoContext);
   const { editarProducto } = productoContext;
 
+
+
   //agregar un product actual para editar
   const seleccionarProducto = producto => {
     editarProducto(producto);

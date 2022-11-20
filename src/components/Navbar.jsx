@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 import { AsideProducto } from "./AsideProducto";
@@ -9,9 +9,13 @@ export const Navbar = ({ rol }) => {
   
   //extraer la informacion autenticada
   const authContext = useContext(AuthContext);
-  const { usuario } = authContext;
+  const { usuario, usuarioAutenticado } = authContext;
   
+  useEffect(() => {
+    usuarioAutenticado();
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
   const clickCarrito = () => {
     setToggle(!toggle);
   }

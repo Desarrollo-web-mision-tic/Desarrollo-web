@@ -4,6 +4,8 @@ import '../styles/ListaProAdmin.css'
 import { SectionCardAdmin } from '../components/SectionCardAdmin';
 
 const ProductosAdmin = () => {
+
+
     return (
         <>
             <SectionCardAdmin /> 

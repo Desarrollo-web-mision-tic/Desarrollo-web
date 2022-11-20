@@ -2,6 +2,8 @@ import React from "react";
 import "../styles/Ventas.css";
 
 const Ventas = () => {
+
+
   return (
     <>
     <div className="tabla-ventas">
