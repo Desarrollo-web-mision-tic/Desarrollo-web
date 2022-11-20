@@ -3,7 +3,7 @@ import ProductoContext from "./context/productos/productoContext";
 
 const ProducItem = ({ producto }) => {
 
-  
+
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { addToCart } = productoContext;

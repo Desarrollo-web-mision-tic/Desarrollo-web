@@ -33,7 +33,7 @@ const ProductoState = ({ children }) => {
   const obtenerProductos = async () => {
     try {
       const resultado = await clienteAxios.get('api/productos');
-      console.log(resultado.data.productos);
+      //console.log(resultado.data.productos);
       //insertar producto state
       dispatch({
         type: OBTENER_PRODUCTOS,
@@ -78,8 +78,8 @@ const editarProducto = async producto => {
 const actualizarProducto = async producto => {
   try {
     const resultado = await clienteAxios.put(`/api/productos/${producto.uid}`, producto);
-    console.log(producto);
-    console.log(resultado.data.producto);
+    //console.log(producto);
+    //console.log(resultado.data.producto);
     dispatch({
       type: ACTUALIZAR_PRODUCTO,
       payload: resultado.data.producto
@@ -89,10 +89,10 @@ const actualizarProducto = async producto => {
   }
 }
   //agregar al carrito
-  const addToCart = id => {
+  const addToCart = uid => {
     dispatch({
       type: AGREGAR_CARRITO,
-      payload: id,
+      payload: uid,
     })
   }
   //eliminar del carrito

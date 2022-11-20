@@ -8,6 +8,8 @@ const SectionCard = () => {
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { productos, obtenerProductos, addToCart } = productoContext;
+
+
   //obtener productos cuando carga el componente
   useEffect(() => {
     obtenerProductos();

@@ -5,6 +5,8 @@ import ProductoContext from './context/productos/productoContext';
 
 const EditarPro = ({ product }) => {
   let navigate = useNavigate();
+
+
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
   const { productoseleccionado, actualizarProducto, obtenerProductos } = productoContext;
@@ -14,7 +16,6 @@ const EditarPro = ({ product }) => {
         guardarProductos(productoseleccionado)
     }else {
         guardarProductos({
-            id: '',
             img: '',
             marca: '',
             modelo: '',
@@ -26,7 +27,6 @@ const EditarPro = ({ product }) => {
     }
   }, [productoseleccionado])
   const [productos, guardarProductos ] = useState({
-    id: '',
     img: '',
     marca: '',
     modelo: '',
@@ -42,7 +42,7 @@ const EditarPro = ({ product }) => {
         [e.target.name]: e.target.value
     })
 }
-  const { id, img, marca, modelo, stock, km, year, precio } = productos;
+  const { img, marca, modelo, stock, km, year, precio } = productos;
   const onSubmit = e => {
     e.preventDefault();
 
@@ -59,7 +59,6 @@ const EditarPro = ({ product }) => {
     obtenerProductos()
     //reiniciar form
     guardarProductos({
-      id: '',
       img: '',
       marca: '',
       modelo: '',
@@ -111,18 +110,6 @@ const EditarPro = ({ product }) => {
             className="form-control"
             name="modelo"
             value={modelo}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="forma-input">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Id Producto
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="id"
-            value={id}
             onChange={handleChange}
           />
         </div>

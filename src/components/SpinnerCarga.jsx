@@ -1,6 +1,7 @@
 import React from "react";
 
 const SpinnerCarga = () => {
+
   return (
     <>
       <div className="sk-fading-circle">
