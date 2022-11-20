@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "../styles/AsideCarrito.css";
 import ProducItem from "./ProducItem";
 import ProductoContext from "./context/productos/productoContext";
+import SpinnerCarga from "./SpinnerCarga";
 
 const SectionCard = () => {
   //extraer productos de stateInitial
@@ -10,17 +11,17 @@ const SectionCard = () => {
   //obtener productos cuando carga el componente
   useEffect(() => {
     obtenerProductos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line 
   }, []);
 
   //revisar si tiene productos
-  if (productos.length === 0) return null;
+  if (productos.length === 0) return <SpinnerCarga />;
 
   return (
     <section className="container">
       <div className="containe-card">
         {productos.map((producto) => (
-          <ProducItem key={producto.id} producto={producto} addToCart={addToCart} />
+          <ProducItem key={producto.uid} producto={producto} addToCart={addToCart} />
         ))}
       </div>
     </section>

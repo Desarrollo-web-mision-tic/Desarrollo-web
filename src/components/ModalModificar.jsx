@@ -11,6 +11,7 @@ function ModalModificar() {
 
   //state para productos
   const [producto, guardarProductos ] = useState({
+      id: '',
       img: '',
       marca: '',
       modelo: '',
@@ -20,7 +21,7 @@ function ModalModificar() {
       precio: '',
   });
   //extraer nombre del productos
-  const { img, marca, modelo, stock, km, precio, year } = producto;
+  const { id, img, marca, modelo, stock, km, precio, year } = producto;
   //lee los contenidos del input
   const onChangeProducto = e => {
     guardarProductos({
@@ -38,10 +39,11 @@ function ModalModificar() {
       mostrarError();
       return;  
     }
-    //agregar al state
-    agregarProducto(producto);
+    //agregar Producto
+    agregarProducto(producto)
     //reiniciar el form
     guardarProductos({
+      id: '',
       img: '',
       marca: '',
       modelo: '',
@@ -63,7 +65,7 @@ function ModalModificar() {
             Imagen
           </label>
           <input
-            type="file"
+            type="text"
             className="form-control"
             aria-describedby="emailHelp"
             name="img"
@@ -93,6 +95,18 @@ function ModalModificar() {
             className="form-control"
             name="modelo"
             value={modelo}
+            onChange={onChangeProducto}
+          />
+        </div>
+        <div className="forma-input">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Id Producto
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="id"
+            value={id}
             onChange={onChangeProducto}
           />
         </div>

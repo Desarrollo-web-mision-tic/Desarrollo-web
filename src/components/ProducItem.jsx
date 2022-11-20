@@ -39,7 +39,7 @@ const ProducItem = ({ producto }) => {
               <div className="text-center">
                 <button
                   className="btn btn-success"
-                  onClick={() => addToCart(producto.id)}
+                  onClick={() => addToCart(producto.uid)}
                 >
                   Agregar al carrito
                 </button>

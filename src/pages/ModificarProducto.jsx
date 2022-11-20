@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProductoContext from "../components/context/productos/productoContext";
 import ProducItemEditar from "../components/ProducItemEditar";
 import "../styles/ModalModificar.css";

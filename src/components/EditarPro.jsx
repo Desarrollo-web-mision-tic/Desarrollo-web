@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ProductoContext from './context/productos/productoContext';
 
+
 const EditarPro = ({ product }) => {
+  let navigate = useNavigate();
   //extraer productos de stateInitial
   const productoContext = useContext(ProductoContext);
-  const { productoseleccionado, actualizarProducto } = productoContext;
+  const { productoseleccionado, actualizarProducto, obtenerProductos } = productoContext;
   //detecta si hay un producto seleccionado
   useEffect(() => {
     if (productoseleccionado !== null) {
         guardarProductos(productoseleccionado)
     }else {
         guardarProductos({
+            id: '',
             img: '',
             marca: '',
             modelo: '',
@@ -22,7 +25,8 @@ const EditarPro = ({ product }) => {
         });
     }
   }, [productoseleccionado])
-  const [producto, guardarProductos ] = useState({
+  const [productos, guardarProductos ] = useState({
+    id: '',
     img: '',
     marca: '',
     modelo: '',
@@ -34,11 +38,11 @@ const EditarPro = ({ product }) => {
   //leer formulario, valores
   const handleChange = e => {
     guardarProductos({
-        ...producto,
+        ...productos,
         [e.target.name]: e.target.value
     })
 }
-  const { img, marca, modelo, stock, km, year, precio } = producto;
+  const { id, img, marca, modelo, stock, km, year, precio } = productos;
   const onSubmit = e => {
     e.preventDefault();
 
@@ -47,11 +51,24 @@ const EditarPro = ({ product }) => {
     stock === '' || km === '' || precio === '' || year === '' ) {
       return;
     }
+    
     //actualizar el producto seleccionado
-    if (productoseleccionado !== null) {
-      actualizarProducto(producto);
-    }
-
+    actualizarProducto(productos);
+    
+    //agregar al state
+    obtenerProductos()
+    //reiniciar form
+    guardarProductos({
+      id: '',
+      img: '',
+      marca: '',
+      modelo: '',
+      stock: '',
+      km: '',
+      year: '',
+      precio: '',
+    })
+    navigate('/modificar')
   }
 
     return (
@@ -64,12 +81,12 @@ const EditarPro = ({ product }) => {
             Imagen
           </label>
           <input
-            type="image" alt='s'
+            type="text" 
             className="form-control"
             aria-describedby="emailHelp"
             name="img"
             onChange={handleChange}
-            src={img}
+            value={img}
           />
         </div>
         <div className="forma-input">
@@ -94,6 +111,18 @@ const EditarPro = ({ product }) => {
             className="form-control"
             name="modelo"
             value={modelo}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="forma-input">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Id Producto
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="id"
+            value={id}
             onChange={handleChange}
           />
         </div>

@@ -1,37 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth";
 import AuthContext from "../components/autenticacion/authContext";
 import AlertaConext from "../components/context/alertas/alertaContext";
+import SpinnerCarga from "../components/SpinnerCarga";
 import '../styles/login.css'
 
 const Login = () => {
-  /* const auth = useAuth();
-  const [username, setUsername] = useState('');
-
-  const login = (e) => {
-    e.preventDefault();
-    auth.login({ username });
-    console.log(username);
-  }; */
 
     //extraer los valores del context
      const alertaContext = useContext(AlertaConext);
      const { alerta, mostrarAlerta } = alertaContext;
  
      const authContext = useContext(AuthContext);
-     const { mensaje, autenticado, iniciaSesion } = authContext;
+     const { autenticado, iniciaSesion } = authContext;
     //si el usuariop O PASSWORD o no exista
     let navigate = useNavigate();
     useEffect(() => {
         if (autenticado) {
+          <SpinnerCarga />
             navigate('/user');
         }
-        if (mensaje) {
+        /* if (mensaje) {
             mostrarAlerta(mensaje.msg, mensaje.categoria);
-        }
-    }, [mensaje, autenticado, navigate, mostrarAlerta])
+        } */
+    }, [autenticado, navigate])
 
     //state para login
     const [ usuario, guardarUsuario ] = useState({
