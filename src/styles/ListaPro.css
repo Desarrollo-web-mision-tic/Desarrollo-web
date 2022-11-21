@@ -37,3 +37,14 @@ p.card-text {
     font-size: 14px;
     font-weight: bold;
 }
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+    .container {
+        width: 95%;
+    }
+}
+
+
+
+
