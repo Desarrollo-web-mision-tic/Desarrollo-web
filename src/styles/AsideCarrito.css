@@ -15,7 +15,6 @@
   .containe-card{
     display: flex;
     justify-content: center;
-    padding: 50px 200px;
     flex-wrap: wrap;
   }
   .card{
@@ -32,6 +31,7 @@
     bottom: 0;
     border-radius: 6px;
     border: 1px solid var(--very-light-pink);
+    z-index: 1;
   }
   .title-container {
     display: flex;
